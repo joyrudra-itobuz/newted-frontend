@@ -10,7 +10,7 @@ export default function AllNotes() {
   }
 
   interface NoteResponse {
-    data: Note[] | null;
+    data: { data: Note[] | null };
     message: string;
     success: boolean;
   }
@@ -30,12 +30,16 @@ export default function AllNotes() {
 
     const allNoteResponse: NoteResponse = await axios.get(apiURl);
 
-    setAllNotes(allNoteResponse.data ?? []);
+    console.log({ allNoteResponse });
+
+    setAllNotes(allNoteResponse.data.data ?? []);
+
+    console.log(allNotes);
   };
 
   return (
     <div className="all-notes-container">
-      {allNotes.map((data, index) => {
+      {allNotes?.map((data, index) => {
         return (
           <div key={index}>
             <h2>{data.heading}</h2>
