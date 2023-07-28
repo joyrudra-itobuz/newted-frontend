@@ -3,16 +3,15 @@ import "./_style.scoped.scss";
 import config from "../../config/config";
 import axios from "axios";
 
-export default function AllNotes() {
+function AllNotes() {
   interface Note {
     heading: string;
+    isDeleted: boolean;
     body?: string;
   }
 
   interface NoteResponse {
-    data: { data: Note[] | null };
-    message: string;
-    success: boolean;
+    data: { data: Note[] | null; message: string; success: boolean };
   }
 
   const [allNotes, setAllNotes] = useState<Note[]>([]);
@@ -30,23 +29,29 @@ export default function AllNotes() {
 
     const allNoteResponse: NoteResponse = await axios.get(apiURl);
 
-    console.log({ allNoteResponse });
-
-    setAllNotes(allNoteResponse.data.data ?? []);
+    setAllNotes(allNoteResponse?.data?.data ?? []);
 
     console.log(allNotes);
   };
 
   return (
-    <div className="all-notes-container">
+    <div className="all-notes-container gap-5 bg-[#181818] text-white px-5">
       {allNotes?.map((data, index) => {
-        return (
-          <div key={index}>
-            <h2>{data.heading}</h2>
-            <p>{data.body}</p>
-          </div>
-        );
+        if (!data?.isDeleted)
+          return (
+            <div
+              key={index}
+              className="bg-gray-400 bg-opacity-10 p-5 h-40 overflow-auto"
+            >
+              <h2 className="truncate">{data?.heading}</h2>
+              <p className="mt-5">{data?.body}</p>
+            </div>
+          );
+
+        return null;
       })}
     </div>
   );
 }
+
+export default React.memo(AllNotes);
