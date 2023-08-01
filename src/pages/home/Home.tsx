@@ -15,7 +15,7 @@ export default function Home() {
   async function validateUser() {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/signup");
+      navigate("/login");
       return;
     }
     try {
@@ -23,7 +23,7 @@ export default function Home() {
 
       if (!data.success) {
         if (!token) {
-          navigate("/signup");
+          navigate("/login");
           return;
         }
       }
@@ -32,11 +32,11 @@ export default function Home() {
     }
   }
   return (
-    <div className="h-screen lg:flex">
-      <SideBar />
-      <div className="w-full">
-        <AllNotes />
-      </div>
-    </div>
+    // <div className="h-screen lg:flex">
+    //   <SideBar />
+    //   <div className="w-full">
+    <AllNotes />
+    //   </div>
+    // </div>
   );
 }
