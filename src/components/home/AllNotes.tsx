@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./_style.scoped.scss";
 import config from "../../config/config";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function AllNotes() {
   interface Note {
@@ -16,6 +17,7 @@ export default function AllNotes() {
   }
 
   const [allNotes, setAllNotes] = useState<Note[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllNotes();
@@ -38,10 +40,13 @@ export default function AllNotes() {
   };
 
   return (
-    <div className="all-notes-container">
+    <div className="all-notes-container bg-[#1E1E1E] h-screen">
       {allNotes?.map((data, index) => {
         return (
-          <div key={index}>
+          <div
+            key={index}
+            className="p-5 bg-gray-400 bg-opacity-10 text-white cursor-pointer"
+          >
             <h2>{data.heading}</h2>
             <p>{data.body}</p>
           </div>

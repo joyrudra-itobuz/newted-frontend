@@ -4,13 +4,9 @@ import Header from "../../components/newNote/Header";
 
 export default function NewNote() {
   return (
-    <div className="h-screen">
-      <div className="h-[20vh]">
-        <SideBar />
-      </div>
-      <div className="h-[80vh]">
-        <Header />
-      </div>
+    <div className="h-screen lg:flex bg-[#1E1E1E]">
+      <SideBar />
+      <Header />
     </div>
   );
 }

@@ -4,37 +4,48 @@ import "./_style.scoped.scss";
 import axios from "axios";
 import config from "../../config/config";
 import { log } from "console";
+import { useNavigate } from "react-router-dom";
 
 export const SignUp: React.FC = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const usernameRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const confirmPasswordRef = useRef<HTMLInputElement | null>(null);
+  const navigate = useNavigate();
+
+  interface Response {
+    data: [] | object;
+    success: boolean;
+    message: string;
+  }
 
   async function handleSignUp() {
-    const formData = new FormData();
     const body = {
       email: emailRef.current?.value,
       username: usernameRef.current?.value,
       password: passwordRef.current?.value,
     };
 
-    console.log(formData.forEach((value) => console.log(value)));
+    let { data: response } = await axios.post(
+      config.serverEndpoint + "/signup",
+      body
+    );
 
-    const response = await axios.post(config.serverEndpoint + "/signup", body);
-
-    console.log(response.data);
+    if (response.success) {
+      localStorage.setItem("token", response.data.token);
+      navigate("/");
+    }
   }
 
   return (
-    <div className="bg-[#1E1E1E] sign-up">
+    <div className="bg-[#1E1E1E] sign-up lg:flex h-screen">
       <SideBar />
-      <div className="p-[20px]">
+      <div className="mx-[20px] p-[20px] lg:p-12 md:w-3/4 lg:w-1/2 2xl:w-1/4 md:m-auto bg-gray-700 bg-opacity-20">
         <h1 className="text-center font-bold text-4xl text-white">Sign Up</h1>
 
-        <div className=" text-white">
+        <div className=" text-white flex flex-col gap-5">
           <div className="flex flex-col ">
-            <p>Email</p>
+            <label>Email</label>
             <input
               ref={emailRef}
               type="email"
@@ -42,7 +53,7 @@ export const SignUp: React.FC = () => {
             />
           </div>
           <div className="flex flex-col">
-            <p>Username</p>
+            <label>Username</label>
             <input
               ref={usernameRef}
               type="text"
@@ -50,7 +61,7 @@ export const SignUp: React.FC = () => {
             />
           </div>
           <div className="flex flex-col">
-            <p>Password</p>
+            <label>Password</label>
             <input
               ref={passwordRef}
               type="password"
@@ -58,7 +69,7 @@ export const SignUp: React.FC = () => {
             />
           </div>
           <div className="flex flex-col">
-            <p>Confirm Password</p>
+            <label>Confirm Password</label>
             <input
               ref={confirmPasswordRef}
               type="password"

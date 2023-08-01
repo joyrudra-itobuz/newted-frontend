@@ -48,7 +48,7 @@ export default function Header() {
     };
 
   return (
-    <header className="new-note-header p-[20px] text-white h-full">
+    <header className="new-note-header p-[20px] text-white h-full w-full bg-gray-300 bg-opacity-0">
       <input
         className="mb-10 w-full bg-transparent text-2xl px-2 focus-visible:outline-dashed focus-visible:outline-gray-700"
         type="text"
