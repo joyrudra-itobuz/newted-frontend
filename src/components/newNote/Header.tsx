@@ -3,10 +3,13 @@ import axios from "axios";
 import config from "../../config/config";
 import "./_style.scoped.scss";
 import SaveIcon from "@mui/icons-material/Save";
+import axiosInstance from "../../services/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [heading, setHeading] = useState(String);
   const [body, setBody] = useState(String);
+  const navigate = useNavigate();
 
   interface Note {
     heading: string;
@@ -28,17 +31,23 @@ export default function Header() {
   }, [body]);
 
   const saveButtonHandler = async () => {
-    const apiURL = config.serverEndpoint + "/new-note";
+    try {
+      const newNoteData: Note = {
+        heading,
+        body,
+      };
+      const noteResponse = await axiosInstance.post("/new-note", newNoteData);
 
-    console.log({ apiURL });
+      if (!noteResponse.data.data.success) {
+        throw new Error("Couldn't add the note");
+      }
 
-    const newNoteData: Note = {
-      heading,
-      body,
-    };
-    const noteResponse: NoteResponse = await axios.post(apiURL, newNoteData);
-
-    console.log(noteResponse.data);
+      if (noteResponse.data.data.success) {
+        navigate("/");
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   const handleChange =
