@@ -7,7 +7,7 @@ export default function Navbar() {
   const token = localStorage.getItem("token");
 
   return (
-    <nav className="bg-[#171717] p-5 flex justify-end">
+    <nav className="bg-[#171717] p-5 flex justify-end sticky top-0">
       {token ? (
         <div
           className="relative"

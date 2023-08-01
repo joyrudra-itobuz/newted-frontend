@@ -23,24 +23,16 @@ export default function AllNotes() {
     getAllNotes();
   }, []);
 
-  useEffect(() => {
-    console.log(allNotes);
-  }, [allNotes]);
-
   const getAllNotes = async () => {
     const apiURl = config.serverEndpoint + "/all-notes";
 
     const allNoteResponse: NoteResponse = await axios.get(apiURl);
 
-    console.log({ allNoteResponse });
-
     setAllNotes(allNoteResponse.data.data ?? []);
-
-    console.log(allNotes);
   };
 
   return (
-    <div className="all-notes-container bg-[#1E1E1E] h-screen">
+    <div className="all-notes-container bg-[#1E1E1E] h-screen w-full">
       {allNotes?.map((data, index) => {
         return (
           <div

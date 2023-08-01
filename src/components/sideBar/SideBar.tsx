@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function SideBar() {
   return (
-    <div className="sidebar font-[600] p-[20px] lg:w-1/5 xl:w-1/6 h-screen">
+    <div className="sidebar font-[600] p-[20px] lg:w-2/6 xl:w-3/12 h-screen">
       <div className="flex justify-between py-4">
         <Link to={"/"} className="flex gap-2">
           <h2 className="cursive-font">Nowted</h2>

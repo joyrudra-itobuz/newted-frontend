@@ -7,12 +7,14 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const token = localStorage.getItem("token");
+
   return (
     <div>
       <aside className="flex">
-        <SideBar />
+        {token ? <SideBar /> : ""}
         <div className="flex flex-col w-full h-screen overflow-auto">
-          <Navbar />
+          {token ? <Navbar /> : ""}
           <main className="w-full h-full bg-[#1E1E1E] flex flex-col justify-center items-center">
             {children}
           </main>
