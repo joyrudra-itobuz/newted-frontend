@@ -10,9 +10,11 @@ export default function NavPop() {
   async function handleLogout() {
     localStorage.clear();
     navigate("/login");
+    window.location.reload();
   }
+
   return (
-    <ul className="bg-gray-400 bg-opacity-25 p-3 flex flex-col gap-2 w-[10rem]">
+    <ul className="bg-gray-400 bg-opacity-25 p-3 flex flex-col gap-2 w-[10rem] backdrop-blur-3xl">
       <li className={`${liStyles} flex gap-2`}>
         <ManageAccountsRoundedIcon className="text-blue-600" />{" "}
         <p className="my-auto">Profile</p>

@@ -1,5 +1,5 @@
 import React, { FormEvent, useRef, useState } from "react";
-import SideBar from "../../components/sideBar/SideBar";
+
 import axiosInstance from "../../services/axiosInstance";
 import { Link, useNavigate } from "react-router-dom";
 import { whiteButton } from "../../stylesheets/tailwindStyles/button";
@@ -50,8 +50,6 @@ const Login = () => {
             className="focus:outline-dashed"
             id="outlined-multiline-flexible"
             label="Username"
-            multiline
-            maxRows={4}
             onChange={(e) => {
               setUsername(e.target.value);
             }}
@@ -60,8 +58,7 @@ const Login = () => {
             className="focus:outline-dashed"
             id="outlined-multiline-flexible"
             label="Password"
-            multiline
-            maxRows={4}
+            type="password"
             onChange={(e) => {
               setPassword(e.target.value);
             }}
